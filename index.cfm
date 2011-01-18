@@ -2,7 +2,8 @@
 <!--- @@License: Free :) --->
 <cfsetting enablecfoutputonly="true">
 	<h1>StatesAndCountries for Wheels v1.0</h1>
-	<p>A very basic plugin to access arrays of US states, Canadian provinces, and Countries. I created this because I cannot recall an application that I've built over the years that did not need a State or Country drop-down in some form somewhere in the application. The plugin comes with three asset files: us_states.xml, canadian_provinces.xml, and countries.xml. The three aforementioned XML files are read and queries for US states, Canadian provinces, and countries are created and then stored in the application scope whenever you call a specific method for the first time (subsequent calls will pull the data from the application scope).</p>
+	<p>A very basic plugin to access queries for US states, Canadian provinces, and Countries. I created this because I cannot recall an application that I've built over the years that did not need a State or Country drop-down in some form somewhere in the application.</p>
+	<p>The plugin comes with three asset files: us_states.xml, canadian_provinces.xml, and countries.xml. The three aforementioned XML files are read and queries for US states, Canadian provinces, and countries are created and then stored in the application scope whenever you call a specific method for the first time (subsequent calls will pull the data from the application scope).</p>
 	<h2>Usage</h2>                                                                                                                          
 	<p>
 		This plugin provides four methods for use in your controllers: <tt>getUSStates()</tt>, <tt>getCanadianProvinces()</tt>, <tt>getUSStatesAndCanadianProvinces()</tt> <tt>getCountries()</tt>. All methods do not accept parameters and all return a query. Each row in the returned query has two columns: <tt>name</tt> and <tt>abbreviation</tt>. 
