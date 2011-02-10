@@ -1,7 +1,7 @@
 <!--- @@Copyright: Copyright (c) 2011 ImageAid. All rights reserved. --->
 <!--- @@License: Free :) --->
 <cfsetting enablecfoutputonly="true">
-	<h1>StatesAndCountries for Wheels v1.0</h1>
+	<h1>StatesAndCountries for Wheels v1.0.1</h1>
 	<p>A very basic plugin to access queries for US states, Canadian provinces, and Countries. I created this because I cannot recall an application that I've built over the years that did not need a State or Country drop-down in some form somewhere in the application.</p>
 	<p>The plugin comes with three asset files: us_states.xml, canadian_provinces.xml, and countries.xml. When one of the four methods (below) are called for the first time, the relevant XML file is read and a query is created, stored in the application scope and returned. Subsequent calls to the same method will pull the query from the application scope rather than recreating it time and again.</p>
 	<h2>Usage</h2>                                                                                                                          

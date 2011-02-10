@@ -3,7 +3,7 @@
 ##Install the plugin.##
 
 * Download a Zip archive of the plugin on github at: https://github.com/imageaid/StatesAndCountries
-* Rename the archive to: "StatesAndCountries-0.1.0.zip" (no quotes)
+* Rename the archive to: "StatesAndCountries-1.0.1.zip" (no quotes)
 * Drop the archive into your Wheels plugins folder
 * Restart or reload Wheels
 
