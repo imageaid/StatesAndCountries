@@ -9,7 +9,7 @@
 	
 	<cffunction access="public" returntype="StatesAndCountries" name="init">
 		<cfscript>
-			this.version = "1.1,1.1.1";//sets the Wheels versions the plugin is compatible with. 
+			this.version = "1.1,1.1.1,1.2";//sets the Wheels versions the plugin is compatible with. 
 			return this;
 		</cfscript> 
 	</cffunction>
