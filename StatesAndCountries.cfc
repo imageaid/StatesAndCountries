@@ -68,7 +68,7 @@
 				</cfscript>
 			</cfcase> 
 			<cfcase value="canadian_provinces">
-				<cffile action="read" file="#expandPath( './#application.wheels.pluginPath#/StatesAndCountries/assets/canadian_provinces.xml' )#" variable="canadian_provinces_content" />
+				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/canadian_provinces.xml" variable="canadian_provinces_content" />
 				<cfscript>        
 					if(!structKeyExists(application,"canadianProvinces")){           						
 						canadian_provinces_xml = xmlParse(canadian_provinces_content);
