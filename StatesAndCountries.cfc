@@ -9,7 +9,7 @@
 	
 	<cffunction access="public" returntype="StatesAndCountries" name="init">
 		<cfscript>
-			this.version = "1.0.4,1.0.5,,1.1,1.1.1,1.1.2";//sets the Wheels versions the plugin is compatible with. 
+			this.version = "1.0.4,1.0.5,1.1,1.1.1,1.1.2,1.1.5";
 			return this;
 		</cfscript> 
 	</cffunction>
@@ -49,10 +49,11 @@
 			variables.canadian_provinces = queryNew("name,abbreviation");
 			variables.us_states_and_canadian_provinces = queryNew("name,abbreviation");
 			variables.countries = queryNew("name,abbreviation");
+			
 		</cfscript>
 		<cfswitch expression="#trim(lcase(arguments.item_to_load))#">
 			<cfcase value="us_states">
-				<cffile action="read" file="assets/us_states.xml" variable="us_states_content" />  
+				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/us_states.xml" variable="us_states_content" />  
 				<cfscript>					         
 					if(!structKeyExists(application,"usStates")){
 						us_states_xml = xmlParse(us_states_content);    						
@@ -61,13 +62,13 @@
 							querySetCell(variables.us_states,"name",us_states_xml.XMLChildren[1].XMLChildren[i].XMLChildren[1].xmlText);
 							querySetCell(variables.us_states,"abbreviation",us_states_xml.XMLChildren[1].XMLChildren[i].XMLChildren[2].xmlText); 
 						}
-						application.usStates = variables.us_states;  
+						application.usStates = variables.us_states;
 					}
 					return application.usStates;
 				</cfscript>
 			</cfcase> 
 			<cfcase value="canadian_provinces">
-				<cffile action="read" file="assets/canadian_provinces.xml" variable="canadian_provinces_content" />
+				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/canadian_provinces.xml" variable="canadian_provinces_content" />
 				<cfscript>        
 					if(!structKeyExists(application,"canadianProvinces")){           						
 						canadian_provinces_xml = xmlParse(canadian_provinces_content);
@@ -77,12 +78,13 @@
 							querySetCell(variables.canadian_provinces,"abbreviation",canadian_provinces_xml.XMLChildren[1].XMLChildren[i].XMLChildren[2].xmlText);
 						}
 						application.canadianProvinces = variables.canadian_provinces;
-					}         
-					return application.canadianProvinces;                                
+					}
+					return application.canadianProvinces;
 				</cfscript>
 			</cfcase>
 			<cfcase value="us_states_and_canadian_provinces">
-				
+				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/canadian_provinces.xml" variable="canadian_provinces_content" />
+				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/us_states.xml" variable="us_states_content" />  
 				<cfscript>
 					if(!structKeyExists(application,"usStatesAndCanadianProvinces")){
 					  	us_states_xml = xmlParse(us_states_content);
@@ -103,7 +105,7 @@
 				</cfscript>
 			</cfcase>
 			<cfcase value="countries">
-				<cffile action="read" file="assets/countries.xml" variable="countries_content" /> 
+				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/countries.xml" variable="countries_content" /> 
 				<cfscript>                                                 
 					if(!structKeyExists(application,"countries")){
 						countries_xml = xmlParse(countries_content); 
@@ -117,7 +119,8 @@
 					return application.countries;
 				</cfscript>
 			</cfcase>
-		</cfswitch>		                      
+		</cfswitch>		   
+		                   
 	</cffunction>
 	
 </cfcomponent>
