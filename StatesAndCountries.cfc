@@ -5,11 +5,12 @@
 	<cfproperty name="us_states" type="query" displayname="US States" hint="I am a query representing all US states" />
 	<cfproperty name="canadian_provinces" type="query" displayname="Canadian Provinces" hint="I am a query representing all Canadian Provinces" />
 	<cfproperty name="us_states_and_canadian_provinces" type="query" displayname="US States and Canadian Provinces" hint="I am a query representing all Canadian Provinces and US States" />
-	<cfproperty name="countries" type="query" displayname="Countries" hint="I am a query representing all countries" />
+	<cfproperty name="countries" type="query" displayname="Countries" hint="I am a query representing all countries" />  
+	<cfproperty name="asset_path" type="string" displayname="AssetPath" hint="I represet the location of the asset files" value="" />
 	
 	<cffunction access="public" returntype="StatesAndCountries" name="init">
 		<cfscript>
-			this.version = "1.0.4,1.0.5,1.1,1.1.1,1.1.2,1.1.5";
+			this.version = "1.0.4,1.0.5,1.1,1.1.1,1.1.2,1.1.3,1.1.4,1.1.5";      
 			return this;
 		</cfscript> 
 	</cffunction>
@@ -44,16 +45,20 @@
 		<cfscript>
 			var us_states_xml = xmlNew();
 			var canadian_provinces_xml = xmlNew();
-			var countries_xml = xmlNew();
+			var countries_xml = xmlNew();                  
+			var asset_path = "";
 			variables.us_states = queryNew("name,abbreviation");
 			variables.canadian_provinces = queryNew("name,abbreviation");
 			variables.us_states_and_canadian_provinces = queryNew("name,abbreviation");
-			variables.countries = queryNew("name,abbreviation");
-			
+			variables.countries = queryNew("name,abbreviation");                       
+			// check if the server is ACF and, if so, set a different asset_path (blank string for Railo and, I believe, OBD)
+			if( structKeyExists(server.coldfusion,"productname") && lcase(trim(server.coldfusion.productname)) contains "coldfusion" ){
+				asset_path = getDirectoryFromPath(getCurrentTemplatePath()) & "/";
+			}
 		</cfscript>
 		<cfswitch expression="#trim(lcase(arguments.item_to_load))#">
 			<cfcase value="us_states">
-				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/us_states.xml" variable="us_states_content" />  
+				<cffile action="read" file="#asset_path#assets/us_states.xml" variable="us_states_content" />  
 				<cfscript>					         
 					if(!structKeyExists(application,"usStates")){
 						us_states_xml = xmlParse(us_states_content);    						
@@ -68,7 +73,7 @@
 				</cfscript>
 			</cfcase> 
 			<cfcase value="canadian_provinces">
-				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/canadian_provinces.xml" variable="canadian_provinces_content" />
+				<cffile action="read" file="#asset_path#assets/canadian_provinces.xml" variable="canadian_provinces_content" />
 				<cfscript>        
 					if(!structKeyExists(application,"canadianProvinces")){           						
 						canadian_provinces_xml = xmlParse(canadian_provinces_content);
@@ -83,8 +88,8 @@
 				</cfscript>
 			</cfcase>
 			<cfcase value="us_states_and_canadian_provinces">
-				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/canadian_provinces.xml" variable="canadian_provinces_content" />
-				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/us_states.xml" variable="us_states_content" />  
+				<cffile action="read" file="#asset_path#assets/canadian_provinces.xml" variable="canadian_provinces_content" />
+				<cffile action="read" file="#asset_path#assets/us_states.xml" variable="us_states_content" />  
 				<cfscript>
 					if(!structKeyExists(application,"usStatesAndCanadianProvinces")){
 					  	us_states_xml = xmlParse(us_states_content);
@@ -105,7 +110,7 @@
 				</cfscript>
 			</cfcase>
 			<cfcase value="countries">
-				<cffile action="read" file="#getDirectoryFromPath(getCurrentTemplatePath())#/assets/countries.xml" variable="countries_content" /> 
+				<cffile action="read" file="#asset_path#assets/countries.xml" variable="countries_content" /> 
 				<cfscript>                                                 
 					if(!structKeyExists(application,"countries")){
 						countries_xml = xmlParse(countries_content); 
